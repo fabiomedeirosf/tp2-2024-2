@@ -11,7 +11,9 @@ public class Conta {
 	
 	private Double saldo;
 	
-	private List<String> extrato = new ArrayList<>();
+	private Double emprestimo;
+	
+	private List<Movimentacao> extrato = new ArrayList<>();
 	
 	public Conta(Integer numero, Double saldo) {
 		this.numero = numero;
@@ -29,31 +31,31 @@ public class Conta {
 		
 		return this.saldo;
 	}
+
 	
 	private void gerarExtrato(Double valor) {
 		
-		StringBuilder registro = new StringBuilder();
+		Movimentacao novaMovimentacao = new Movimentacao();
+		novaMovimentacao.setData(new Date());
+		novaMovimentacao.setOperacao((valor > 0) ? "DEPOS" : "SAQUE");
+		novaMovimentacao.setValor(valor);
+		novaMovimentacao.setSaldo(this.saldo);
 		
-		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy: HH:mm");
-		registro
-			.append(df.format(new Date()))
-			.append("\t")
-			.append((valor > 0) ? "depos" : "saque")
-			.append("\t\t")
-			.append(valor)
-			.append("\t")
-			.append(this.saldo);
-		
-		this.extrato.add(registro.toString());
+		this.extrato.add(novaMovimentacao);
 	}
 	
 	public void imprimirExtrato() {
 		
 		System.out.println("Data\t\t\tOperacao\tValor\tSaldo");
+		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyy HH:mm");
 		
 		this.extrato.forEach(registro -> {
-			System.out.println(registro);
+			System.out.printf("\n%s", df.format(registro.getData()));
+			System.out.printf("\t%s", registro.getOperacao());
+			System.out.printf("\t\t%.2f", registro.getValor());
+			System.out.printf("\t%.2f", registro.getSaldo());
 		});
+		System.out.println("\n-------------------------------");
 	}
 
 	public Integer getNumero() {
@@ -64,5 +66,12 @@ public class Conta {
 		return saldo;
 	}
 	
+	public void setEmprestimo(Double emprestimo) {
+		this.emprestimo = emprestimo;
+	}
+	
+	public Double getEmprestimo() {
+		return emprestimo;
+	}
 	
 }

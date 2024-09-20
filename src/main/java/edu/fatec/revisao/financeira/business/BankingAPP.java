@@ -16,20 +16,15 @@ public class BankingAPP {
 		
 		financeira.sacar(c1, 90D);
 		financeira.sacar(c1, 16.34D);
-
-		System.out.println(c1.getSaldo());
+		financeira.depositar(c1, 6000D);
 		
-		System.out.println("---------------------");
-		FinaceiroInterface ellenBank = new EllenBanking();
-		Conta c2 = new Conta(333, 100D);
-		
-		ellenBank.depositar(c2, 100D);
-		System.out.println(c2.getSaldo());
-		ellenBank.depositar(c2, 20000D);
-		
-		System.out.println(c2.getSaldo());
+		EmprestimoInterface daniloEmprestimo = new DaniloBanking();
 		
 		c1.imprimirExtrato();
+		
+		System.out.println("emprestimo realizado: " + 
+				daniloEmprestimo.emprestar(c1, 1000D));
+		
 		
 	}
 }
