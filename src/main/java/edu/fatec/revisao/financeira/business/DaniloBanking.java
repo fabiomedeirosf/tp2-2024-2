@@ -1,6 +1,7 @@
 package edu.fatec.revisao.financeira.business;
 
-public class DaniloBanking extends FinanceiroPadrao implements EmprestimoInterface{
+public class DaniloBanking extends FinanceiroPadrao 
+			implements EmprestimoInterface, CapitalizacaoInterface{
 
 	@Override
 	public Double emprestar(Conta conta, Double valor) {
@@ -23,6 +24,11 @@ public class DaniloBanking extends FinanceiroPadrao implements EmprestimoInterfa
 		
 	}
 
+	@Override
+	public void investir(Double valor) {
+		System.out.println("fique rico investindo e nao ganhando");
+		
+	}
 	
 
 }
